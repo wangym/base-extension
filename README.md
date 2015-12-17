@@ -1,2 +1,2 @@
 # effective-extension
-Java effective extension solution
+Java extension solution
