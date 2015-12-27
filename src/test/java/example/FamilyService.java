@@ -9,8 +9,10 @@ public final class FamilyService {
      * @param parent
      */
     public void printlnParent(ParentBean parent) {
-        System.out.println(
-                String.format("[FamilyService.printlnParent]propertyA=%s&extensionMap=%s",
-                        parent.getPropertyA(), parent.getExtensionMap()));
+        if (null != parent) {
+            System.out.println(
+                    String.format("[FamilyService.printlnParent]propertyA=%s&extensionMap=%s",
+                            parent.getPropertyA(), parent.getExtensionMap()));
+        }
     }
 }
