@@ -12,11 +12,9 @@ public final class ExampleTest {
     public void run() throws Exception {
         ParentBean parent = new ParentBean();
         parent.setPropertyA("a");
-
         ChildBean child = new ChildBean();
         child.setPropertyB("b");
         child.setPropertyC("c");
-
         GrandsonBean grandson = new GrandsonBean();
         grandson.setPropertyD("d");
         grandson.setPropertyE("e");
@@ -24,6 +22,7 @@ public final class ExampleTest {
 
         FamilyService familyService = new FamilyService();
         familyService.printlnParent(parent);
+
         Assert.assertTrue(true);
     }
 }
