@@ -14,5 +14,5 @@ public abstract class BaseBean implements Serializable {
 
     @Setter
     @Getter
-    private Map<String, Object> extensionMap;
+    public static Map<String, Object> extensions;
 }

@@ -10,13 +10,5 @@ import lombok.Setter;
 public class GrandsonBean extends ChildBean {
     @Setter
     @Getter
-    private String propertyD;
-
-    @Setter
-    @Getter
-    private String propertyE;
-
-    @Setter
-    @Getter
-    private String propertyF;
+    private String grandson;
 }

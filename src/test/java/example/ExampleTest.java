@@ -10,18 +10,16 @@ import org.junit.Test;
 public final class ExampleTest {
     @Test
     public void run() throws Exception {
-        ParentBean parent = new ParentBean();
-        parent.setPropertyA("a");
         ChildBean child = new ChildBean();
-        child.setPropertyB("b");
-        child.setPropertyC("c");
+        child.setParent("child's parent");
+        child.setChild("i'm child");
         GrandsonBean grandson = new GrandsonBean();
-        grandson.setPropertyD("d");
-        grandson.setPropertyE("e");
-        grandson.setPropertyF("f");
+        grandson.setParent("grandson's grandparent");
+        grandson.setChild("grandson's parent");
+        grandson.setGrandson("i'm grandson");
 
         FamilyService familyService = new FamilyService();
-        familyService.printlnParent(parent);
+        familyService.println(child);
 
         Assert.assertTrue(true);
     }
