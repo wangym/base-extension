@@ -13,9 +13,9 @@ public final class BeanPropertyToMap implements Opcodes {
     /**
      * @param object
      */
-    public static void trans(Object object) throws IOException {
-        AsmClassVisitor asmClassVisitor = new AsmClassVisitor(ASM5);
+    public static void init(Object object) throws IOException {
         ClassReader classReader = new ClassReader(object.getClass().getCanonicalName().toString());
-        classReader.accept(asmClassVisitor, ClassReader.SKIP_DEBUG);
+        AsmClassVisitor classVisitor = new AsmClassVisitor(ASM5);
+        classReader.accept(classVisitor, ClassReader.SKIP_DEBUG);
     }
 }

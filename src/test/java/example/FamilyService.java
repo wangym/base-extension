@@ -1,7 +1,5 @@
 package example;
 
-import extension.bean.BeanPropertyToMap;
-
 import java.io.IOException;
 
 /**
@@ -13,7 +11,6 @@ public final class FamilyService {
      * @param parent
      */
     public void println(ParentBean parent) throws IOException {
-        BeanPropertyToMap.trans(parent);
         if (null != parent) {
             System.out.println(
                     String.format("[FamilyService.println]parent=%s&extensions=%s",

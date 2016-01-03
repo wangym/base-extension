@@ -1,5 +1,6 @@
 package example;
 
+import extension.bean.BeanPropertyToMap;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -10,6 +11,8 @@ import org.junit.Test;
 public final class ExampleTest {
     @Test
     public void run() throws Exception {
+        BeanPropertyToMap.init(new ChildBean());
+
         ChildBean child = new ChildBean();
         child.setParent("child's parent");
         child.setChild("i'm child");

@@ -1,44 +1,48 @@
 package extension.bean.asm;
 
-import com.sun.org.apache.xpath.internal.compiler.OpCodes;
-import org.objectweb.asm.ClassVisitor;
-import org.objectweb.asm.FieldVisitor;
-import org.objectweb.asm.MethodVisitor;
-import org.objectweb.asm.Opcodes;
+import org.objectweb.asm.*;
 
 /**
  * @author chinawym@gmail.com
  * @since 2015-12-27
  */
 public final class AsmClassVisitor extends ClassVisitor implements Opcodes {
+    private String cname;
+
     public AsmClassVisitor(int api) {
         super(api);
     }
 
     @Override
+    public void visit(int version, int access, String name, String signature, String superName, String[] interfaces) {
+        System.out.println("visit:" + name + "~" + superName);
+        this.cname = name;
+        super.visit(version, access, name, signature, superName, interfaces);
+    }
+
+    @Override
+    public FieldVisitor visitField(int access, String name, String desc, String signature, Object value) {
+        System.out.println("visitField:" + name + "~" + desc + "~" + value);
+        return super.visitField(access, name, desc, signature, value);
+    }
+
+    @Override
     public MethodVisitor visitMethod(int access, String name, String desc, String signature, String[] exceptions) {
-        System.out.println("visitMethod: " + name + "~" + desc + "~" + signature);
+        System.out.println("visitMethod:" + name + "~" + desc + "~");
 
         if (name.contains("set")) {
-            // 使用自定义 MethodVisitor，实际改写方法内容
-            AsmMethodVisitor wrappedMv = new AsmMethodVisitor(ASM5);
-            return wrappedMv;
+            generateNewBody(access, name, desc, signature, exceptions);
         }
 
         return super.visitMethod(access, name, desc, signature, exceptions);
     }
 
-    @Override
-    public FieldVisitor visitField(int access, String name, String desc, String signature, Object value) {
-        System.out.println("visitField: " + name + "~" + desc + "~" + signature + "~" + value);
-
-        return super.visitField(access, name, desc, signature, value);
-    }
-
-    @Override
-    public void visit(int version, int access, String name, String signature, String superName, String[] interfaces) {
-        System.out.println("visit: " + name + "~" + signature + "~" + superName);
-
-        super.visit(version, access, name, signature, superName, interfaces);
+    private void generateNewBody(int access, String name, String desc, String signature, String[] exceptions) {
+        ClassWriter cw = new ClassWriter(ClassWriter.COMPUTE_MAXS);
+        MethodVisitor mv = cw.visitMethod(access, name, desc, signature, exceptions);
+        mv.visitCode();
+        mv.visitVarInsn(Opcodes.ALOAD, 0);
+        mv.visitMethodInsn(access, this.cname, "setExtensions", "(Ljava/util/Map;)V", true);
+        mv.visitEnd();
     }
 }
