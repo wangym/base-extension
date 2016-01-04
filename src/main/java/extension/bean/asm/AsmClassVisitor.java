@@ -31,7 +31,8 @@ public final class AsmClassVisitor extends ClassVisitor implements Opcodes {
         System.out.println("visitMethod:" + name + "~" + desc + "~");
 
         if (name.contains("set")) {
-            generateNewBody(access, name, desc, signature, exceptions);
+            return null;
+            //generateNewBody(access, name, desc, signature, exceptions);
         }
 
         return super.visitMethod(access, name, desc, signature, exceptions);
